@@ -111,19 +111,6 @@ function showUpdateNotification(version, notes) {
   });
 }
 
-// Opens the extension popup as a small floating window so an update is impossible to miss.
-async function openUpdatePopupWindow() {
-  try {
-    await chrome.windows.create({
-      url: chrome.runtime.getURL('popup.html'),
-      type: 'popup',
-      focused: true,
-      width: 340,
-      height: 460
-    });
-  } catch (e) { /* ignore */ }
-}
-
 async function checkForUpdate() {
   const cfg = await getConfig();
   if (!cfg.updateUrl) return;
@@ -144,13 +131,10 @@ async function checkForUpdate() {
       };
       await chrome.storage.local.set({ latestUpdate: latest });
       await setBadge(true);
-      // show once per browser session — session storage clears when Chrome fully restarts,
-      // so the popup + notification appear again the next time you open Chrome.
-      const seen = (await chrome.storage.session.get('updateShown')).updateShown;
+      const seen = (await chrome.storage.local.get('lastNotifiedVersion')).lastNotifiedVersion;
       if (seen !== remote) {
-        await chrome.storage.session.set({ updateShown: remote });
         showUpdateNotification(remote, latest.notes);
-        await openUpdatePopupWindow();
+        await chrome.storage.local.set({ lastNotifiedVersion: remote });
       }
     } else {
       await chrome.storage.local.remove('latestUpdate');
