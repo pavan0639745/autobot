@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "HRLens Auto Check-in",
-  "version": "1.3.0",
+  "version": "1.6.1",
   "description": "Automatically checks you in on HRLens when you open Chrome at the office.",
   "permissions": ["storage", "notifications", "geolocation", "alarms"],
   "host_permissions": [
