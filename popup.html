@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    :root { --bg:#0b0b0c; --line:#26262a; --fg:#f4f4f5; --muted:#9a9aa0; --accent:#0f7a3d; --warn:#d32f2f; }
+    body {
+      margin:0; width:270px; background:var(--bg); color:var(--fg);
+      font-family: system-ui,"Segoe UI",Roboto,sans-serif; padding:16px;
+    }
+    .brand { display:flex; align-items:center; gap:9px; margin-bottom:12px; }
+    .mark { width:28px; height:28px; border-radius:7px; background:#fff; color:#000;
+      display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; }
+    .title { font-size:14px; font-weight:600; }
+    .btn { display:block; width:100%; border:none; border-radius:10px; padding:11px;
+      font-size:14px; font-weight:600; cursor:pointer; color:#fff; margin-top:8px; }
+    .btn.primary { background:var(--accent); }
+    .btn.warn { background:var(--warn); }
+    .btn.ghost { background:transparent; border:1px solid var(--line); color:var(--fg); }
+    .btn:active { transform:translateY(1px); }
+    .meta { color:var(--muted); font-size:12px; margin-top:12px; }
+    .update { display:none; background:#2a1414; border:1px solid #4a2020; border-radius:10px;
+      padding:10px; margin-bottom:6px; font-size:13px; }
+    .update b { color:#ff9a94; }
+  </style>
+</head>
+<body>
+  <div class="brand"><div class="mark">HR</div><div class="title">Auto Check-in</div></div>
+
+  <div class="update" id="updateBox">
+    <span id="updateText"></span>
+    <button class="btn warn" id="download" type="button">Download update</button>
+  </div>
+
+  <button class="btn primary" id="now" type="button">Check in now</button>
+  <button class="btn ghost" id="opts" type="button">Settings</button>
+  <div class="meta" id="meta"></div>
+  <script src="popup.js"></script>
+</body>
+</html>

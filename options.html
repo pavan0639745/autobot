@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HRLens Auto Check-in — Settings</title>
+  <style>
+    :root { --bg:#0b0b0c; --panel:#141416; --line:#26262a; --fg:#f4f4f5; --muted:#9a9aa0; --accent:#0f7a3d; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+      display: flex; justify-content: center; padding: 32px 16px;
+    }
+    .wrap { width: 100%; max-width: 480px; }
+    .brand { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+    .brand .mark {
+      width:34px; height:34px; border-radius:8px; background:#fff; color:#000;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800; font-size:13px; letter-spacing:.5px;
+    }
+    h1 { font-size: 18px; margin: 0; }
+    .sub { color: var(--muted); font-size: 13px; margin: 4px 0 22px; }
+    .panel {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 14px; padding: 18px;
+    }
+    label { display:block; font-size:11px; letter-spacing:.6px; text-transform:uppercase; color:var(--muted); margin:14px 0 6px; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
+      width:100%; background:#0b0b0c; border:1px solid var(--line); color:var(--fg);
+      border-radius:10px; padding:11px 12px; font-size:14px; outline:none;
+    }
+    input:focus { border-color:#4a4a52; }
+    .row { display:flex; gap:10px; }
+    .row > div { flex:1; }
+    .btn {
+      border:none; border-radius:10px; padding:11px 14px; font-size:14px; font-weight:600;
+      cursor:pointer; color:#fff; background:#1f1f24;
+    }
+    .btn.primary { background: var(--accent); }
+    .btn.ghost { background:transparent; border:1px solid var(--line); color:var(--fg); }
+    .btn:active { transform: translateY(1px); }
+    .actions { display:flex; gap:10px; margin-top:20px; }
+    .toggle { display:flex; align-items:center; gap:10px; margin-top:16px; font-size:14px; }
+    .hint { color:var(--muted); font-size:12px; margin-top:6px; }
+    .status { margin-top:14px; font-size:13px; min-height:18px; }
+    .status.ok { color:#5fd39a; }
+    .status.err { color:#f0857f; }
+    details { margin-top:16px; }
+    summary { cursor:pointer; color:var(--muted); font-size:13px; }
+    .geoline { display:flex; gap:10px; align-items:flex-end; }
+    .geoline > div { flex:1; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><div class="mark">HR</div><h1>Auto Check-in</h1></div>
+    <p class="sub">Signs you in on HRLens and checks you in automatically — only when you're at the office.</p>
+
+    <div class="panel">
+      <label for="email">HRLens email</label>
+      <input type="email" id="email" placeholder="you@company.com" autocomplete="off" />
+
+      <label for="password">HRLens password</label>
+      <input type="password" id="password" placeholder="Your password" autocomplete="new-password" />
+      <div class="hint">Stored only on this computer, inside the extension. Never sent anywhere.</div>
+
+      <div class="row" style="margin-top:6px;">
+        <div>
+          <label for="lat">Office latitude</label>
+          <input type="text" id="lat" placeholder="e.g. 12.9716" />
+        </div>
+        <div>
+          <label for="lng">Office longitude</label>
+          <input type="text" id="lng" placeholder="e.g. 77.5946" />
+        </div>
+      </div>
+      <div class="actions" style="margin-top:10px;">
+        <button class="btn ghost" id="useLoc" type="button">Use my current location as office</button>
+      </div>
+      <div class="hint">Stand at your office desk and tap this once.</div>
+
+      <label for="radius" style="margin-top:16px;">Allowed distance from office (metres)</label>
+      <input type="number" id="radius" value="150" min="20" max="2000" />
+
+      <div class="toggle">
+        <input type="checkbox" id="enabled" checked />
+        <label for="enabled" style="margin:0; text-transform:none; letter-spacing:0; color:var(--fg); font-size:14px;">
+          Auto check-in when I open Chrome
+        </label>
+      </div>
+      <div class="hint">Ticked = checks you in silently, only at office. Unticked = shows a reminder each morning that you tap to check in (works for office or home).</div>
+
+      <div class="hint" style="margin-top:16px;">Auto-updates are built in — the extension checks GitHub by itself. Nothing to set here.</div>
+
+      <details>
+        <summary>Advanced (optional)</summary>
+        <label for="sel">Check-in button CSS selector</label>
+        <input type="text" id="sel" placeholder="Leave blank — auto-detects the button" />
+        <div class="hint">Only needed if auto-detect can't find the check-in button.</div>
+      </details>
+
+      <div class="actions">
+        <button class="btn primary" id="save" type="button">Save</button>
+        <button class="btn" id="test" type="button">Test check-in now</button>
+      </div>
+
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
